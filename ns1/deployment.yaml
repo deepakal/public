@@ -17,7 +17,7 @@ spec:
       - image: gcr.io/heptio-images/ks-guestbook-demo:0.2
         name: guestbook-ui
         ports:
-        - containerPort: 90
+        - containerPort: 80
         env:
         - name: HTTP_PROXY
           value: "http://10.158.100.1:8080/"
