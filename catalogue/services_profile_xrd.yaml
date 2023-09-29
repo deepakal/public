@@ -1,0 +1,49 @@
+apiVersion: apiextensions.crossplane.io/v1
+kind: CompositeResourceDefinition
+metadata:
+  name: xztss.cnf.nokia.com
+spec:
+  connectionSecretKeys:
+    - kubeconfig
+    - value
+  defaultCompositionRef:
+    name: zts-service
+  group: cnf.nokia.com
+  names:
+    kind: XZTS
+    plural: xztss
+  claimNames:
+    kind: ZTS
+    plural: ztss
+  versions:
+    - name: v1alpha1
+      served: true
+      referenceable: true
+      schema:
+        openAPIV3Schema:
+          type: object
+          properties:
+            spec:
+              type: object
+              properties:
+                providerConfigRef:
+                  type: object
+                  description: provider config reference name
+                  properties:
+                    name:
+                      type: string
+                      description: provider config reference name
+                  required:
+                    - name
+                parameters:
+                  type: object
+                  description: Parameters used to customize the cluster
+                  x-kubernetes-preserve-unknown-fields: true
+                resourceCompositionName:
+                  type: string
+                  decription: name of the Resource composition
+              required:
+                - parameters
+                - providerConfigRef
+                - resourceCompositionName
+ 
