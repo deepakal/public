@@ -1,0 +1,230 @@
+---
+apiVersion: apiextensions.crossplane.io/v1
+kind: Composition
+metadata:
+  name: zts-service
+  labels:
+    crossplane.io/xrd: cnf.nokia.com
+    configuration: zts-service
+spec:
+  writeConnectionSecretsToNamespace: upbound-system
+  compositeTypeRef:
+    apiVersion: cnf.nokia.com/v1alpha1
+    kind: XZTS
+  patchSets:
+    - name: target
+      patches:
+        - fromFieldPath: spec.providerConfigRef.name
+          toFieldPath: spec.providerConfigRef.name
+
+  resources:
+    - name: profile_value_file
+      base:
+        apiVersion: kubernetes.crossplane.io/v1alpha1
+        kind: Object
+        metadata:
+          name: profile
+        spec:
+          forProvider:
+            manifest:
+              apiVersion: v1
+              kind: ConfigMap
+              metadata:
+                name: profile
+                namespace: upbound-system
+              data:
+                  value.yaml: |-
+                    autonomous:
+                      enabled: true
+                    webhook:
+                      validate: false
+                    controller: true
+                    helm3Only: true
+                    checkLabelling: false
+                    namespaced:
+                      enabled: true
+                    nodeSelector: null
+                    tolerations: null
+          managementPolicy: Default
+      patches:
+        - type: PatchSet
+          patchSetName: target      
+        - type: FromCompositeFieldPath
+          fromFieldPath: spec.parameters.profileOperator.namespace
+          toFieldPath: spec.forProvider.manifest.metadata.namespace   
+
+    - name: helmrepo_value_file
+      base:
+        apiVersion: kubernetes.crossplane.io/v1alpha1
+        kind: Object
+        metadata:
+          name: helmrepo
+        spec:
+          forProvider:
+            manifest:
+              apiVersion: v1
+              kind: ConfigMap
+              metadata:
+                name: helmrepo
+                namespace: upbound-system
+              data:
+                  value.yaml: |-
+                    url: http://10.92.133.68/charts/
+          managementPolicy: Default
+      patches:
+        - type: PatchSet
+          patchSetName: target      
+        - type: FromCompositeFieldPath
+          fromFieldPath: spec.parameters.profileOperator.namespace
+          toFieldPath: spec.forProvider.manifest.metadata.namespace   
+
+    - name: zts_value_file
+      base:
+        apiVersion: kubernetes.crossplane.io/v1alpha1
+        kind: Object
+        metadata:
+          name: zts
+        spec:
+          forProvider:
+            manifest:
+              apiVersion: v1
+              kind: ConfigMap
+              metadata:
+                name: zts
+                namespace: upbound-system
+              data:
+                  value.yaml: |-
+                    global: 
+                      imageRegistry: csf-docker-delivered.repo.lab.pl.alcatel-lucent.com
+                    autoremove: true
+          managementPolicy: Default
+      patches:
+        - type: PatchSet
+          patchSetName: target      
+        - type: FromCompositeFieldPath
+          fromFieldPath: spec.parameters.profileOperator.namespace
+          toFieldPath: spec.forProvider.manifest.metadata.namespace   
+
+  
+    - name: profile_operator
+      base:
+        apiVersion: helm.crossplane.io/v1beta1
+        kind: Release
+        metadata:
+          name: profile
+        spec:
+          forProvider:
+            chart:
+                name: ncm-app
+                repository: https://repo.lab.pl.alcatel-lucent.com/csf-helm-stable
+                version: 1.15.20
+            namespace: upbound-system
+      patches:
+        - type: PatchSet
+          patchSetName: target      
+        - type: FromCompositeFieldPath
+          fromFieldPath: spec.parameters.profileOperator.releaseName
+          toFieldPath: metadata.name      
+        - type: FromCompositeFieldPath
+          fromFieldPath: spec.parameters.profileOperator.chartName
+          toFieldPath: spec.forProvider.chart.name   
+        - type: FromCompositeFieldPath
+          fromFieldPath: spec.parameters.profileOperator.chartVersion
+          toFieldPath: spec.forProvider.chart.version
+        - type: FromCompositeFieldPath
+          fromFieldPath: spec.parameters.profileOperator.repository
+          toFieldPath: spec.forProvider.chart.repository
+        - type: FromCompositeFieldPath
+          fromFieldPath: spec.parameters.profileOperator.namespace
+          toFieldPath: spec.forProvider.namespace
+        - type: FromCompositeFieldPath
+          fromFieldPath: spec.parameters.profileOperator.valueFrom.key
+          toFieldPath: spec.forProvider.valuesFrom[0].configMapKeyRef.key
+        - type: FromCompositeFieldPath
+          fromFieldPath: spec.parameters.profileOperator.valueFrom.name
+          toFieldPath: spec.forProvider.valuesFrom[0].configMapKeyRef.name
+        - type: FromCompositeFieldPath
+          fromFieldPath: spec.parameters.profileOperator.namespace
+          toFieldPath: spec.forProvider.valuesFrom[0].configMapKeyRef.namespace
+
+    - name: helm_repo
+      base:
+        apiVersion: helm.crossplane.io/v1beta1
+        kind: Release
+        metadata:
+          name: helmrepo
+        spec:
+          forProvider:
+            chart:
+                name: helmrepo
+                repository: https://repo.lab.pl.alcatel-lucent.com/csf-helm-stable
+                version: 1.0.3
+            namespace: upbound-system
+      patches:
+        - type: PatchSet
+          patchSetName: target      
+        - type: FromCompositeFieldPath
+          fromFieldPath: spec.parameters.helmrepo.releaseName
+          toFieldPath: metadata.name      
+        - type: FromCompositeFieldPath
+          fromFieldPath: spec.parameters.helmrepo.chartName
+          toFieldPath: spec.forProvider.chart.name   
+        - type: FromCompositeFieldPath
+          fromFieldPath: spec.parameters.helmrepo.chartVersion
+          toFieldPath: spec.forProvider.chart.version
+        - type: FromCompositeFieldPath
+          fromFieldPath: spec.parameters.helmrepo.repository
+          toFieldPath: spec.forProvider.chart.repository
+        - type: FromCompositeFieldPath
+          fromFieldPath: spec.parameters.helmrepo.namespace
+          toFieldPath: spec.forProvider.namespace
+        - type: FromCompositeFieldPath
+          fromFieldPath: spec.parameters.helmrepo.valueFrom.key
+          toFieldPath: spec.forProvider.valuesFrom[0].configMapKeyRef.key
+        - type: FromCompositeFieldPath
+          fromFieldPath: spec.parameters.helmrepo.valueFrom.name
+          toFieldPath: spec.forProvider.valuesFrom[0].configMapKeyRef.name
+        - type: FromCompositeFieldPath
+          fromFieldPath: spec.parameters.helmrepo.namespace
+          toFieldPath: spec.forProvider.valuesFrom[0].configMapKeyRef.namespace
+          
+          
+    - name: application_cr
+      base:
+        apiVersion: helm.crossplane.io/v1beta1
+        kind: Release
+        metadata:
+          name: application_cr
+        spec:
+          forProvider:
+            chart:
+                name: zts-services
+                repository: http://10.92.133.68/charts/
+            namespace: upbound-system
+      patches:
+        - type: PatchSet
+          patchSetName: target      
+        - type: FromCompositeFieldPath
+          fromFieldPath: spec.parameters.ztsService.releaseName
+          toFieldPath: metadata.name      
+        - type: FromCompositeFieldPath
+          fromFieldPath: spec.parameters.ztsService.chartName
+          toFieldPath: spec.forProvider.chart.name   
+        - type: FromCompositeFieldPath
+          fromFieldPath: spec.parameters.ztsService.chartVersion
+          toFieldPath: spec.forProvider.chart.version
+        - type: FromCompositeFieldPath
+          fromFieldPath: spec.parameters.ztsService.repository
+          toFieldPath: spec.forProvider.chart.repository
+        - type: FromCompositeFieldPath
+          fromFieldPath: spec.parameters.ztsService.namespace
+          toFieldPath: spec.forProvider.namespace
+        - type: FromCompositeFieldPath
+          fromFieldPath: spec.parameters.ztsService.valueFrom.key
+          toFieldPath: spec.forProvider.valuesFrom[0].configMapKeyRef.key
+        - type: FromCompositeFieldPath
+          fromFieldPath: spec.parameters.ztsService.valueFrom.name
+          toFieldPath: spec.forProvider.valuesFrom[0].configMapKeyRef.name
+        - type: FromCompositeFieldPath
+          fromFieldPath: spec.parameters.ztsService.namespace
+          toFieldPath: spec.forProvider.valuesFrom[0].configMapKeyRef.namespace 
