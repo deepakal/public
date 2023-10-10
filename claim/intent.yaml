@@ -3,6 +3,7 @@ kind: ZTS
 metadata:
   annotations:
     crossplane.io/claim-namespace: upbound-system
+    argocd.argoproj.io/sync-wave: "1"
   labels:
     crossplane.io/claim-name: test
   name: test
