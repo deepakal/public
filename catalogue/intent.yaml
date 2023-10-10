@@ -42,6 +42,4 @@ spec:
         key: value.yaml
         name: zts
         
-  resourceCompositionName: zts    
-  writeConnectionSecretToRef:
-    name: zts
+  resourceCompositionName: zts
