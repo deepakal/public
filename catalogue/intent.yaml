@@ -33,7 +33,7 @@ spec:
       namespace: upbound-system
       valueFrom:
         key: value.yaml
-        name: helmrepo        
+        name: helmrepo
     ztsService:
       releaseName: zts-services
       chartName: zts-services
@@ -42,5 +42,5 @@ spec:
       valueFrom:
         key: value.yaml
         name: zts
-        
+
   resourceCompositionName: zts
