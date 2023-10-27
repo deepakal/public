@@ -4,6 +4,7 @@ metadata:
   annotations:
     crossplane.io/claim-namespace: upbound-system
     argocd.argoproj.io/sync-wave: "5"
+    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
   labels:
     crossplane.io/claim-name: test
   name: test
