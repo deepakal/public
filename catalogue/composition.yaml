@@ -3,7 +3,7 @@ apiVersion: apiextensions.crossplane.io/v1
 kind: Composition
 metadata:
   annotations:
-    argocd.argoproj.io/sync-wave: "2"
+    argocd.argoproj.io/sync-wave: "1"
   name: zts-service
   labels:
     crossplane.io/xrd: cnf.nokia.com
