@@ -2,13 +2,13 @@ apiVersion: cnf.nokia.com/v1alpha1
 kind: ZTS
 metadata:
   annotations:
-    crossplane.io/claim-namespace: upbound-system
+    crossplane.io/claim-namespace: nc-system
     argocd.argoproj.io/sync-wave: "5"
     argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
   labels:
     crossplane.io/claim-name: test
   name: test
-  namespace: upbound-system
+  namespace: nc-system
 spec:
   compositionRef:
     name: zts-service
@@ -21,7 +21,7 @@ spec:
       chartName: ncm-app
       chartVersion: 1.15.20
       repository: https://repo.cci.nokia.net/artifactory/csf-helm-stable/
-      namespace: upbound-system
+      namespace: cnf
       valueFrom:
         key: value.yaml
         name: profile
@@ -30,7 +30,7 @@ spec:
       chartName: helmrepo
       chartVersion: 1.0.3
       repository:  https://repo.cci.nokia.net/artifactory/csf-helm-stable/
-      namespace: upbound-system
+      namespace: cnf
       valueFrom:
         key: value.yaml
         name: helmrepo
@@ -38,7 +38,7 @@ spec:
       releaseName: zts-services
       chartName: zts-services
       repository: http://10.92.133.68/charts/
-      namespace: upbound-system
+      namespace: cnf
       valueFrom:
         key: value.yaml
         name: zts
