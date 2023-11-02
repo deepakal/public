@@ -9,7 +9,7 @@ metadata:
     crossplane.io/xrd: cnf.nokia.com
     configuration: zts-service
 spec:
-  writeConnectionSecretsToNamespace: upbound-system
+  writeConnectionSecretsToNamespace: nc-system
   compositeTypeRef:
     apiVersion: cnf.nokia.com/v1alpha1
     kind: XZTS
@@ -33,7 +33,7 @@ spec:
               kind: ConfigMap
               metadata:
                 name: profile
-                namespace: upbound-system
+                namespace: cnf
               data:
                   value.yaml: |-
                     autonomous:
@@ -68,7 +68,7 @@ spec:
               kind: ConfigMap
               metadata:
                 name: helmrepo
-                namespace: upbound-system
+                namespace: cnf
               data:
                   value.yaml: |-
                     url: http://10.92.133.68/charts/
@@ -93,7 +93,7 @@ spec:
               kind: ConfigMap
               metadata:
                 name: zts
-                namespace: upbound-system
+                namespace: cnf
               data:
                   value.yaml: |-
                     global: 
@@ -120,7 +120,7 @@ spec:
                 name: ncm-app
                 repository: https://repo.lab.pl.alcatel-lucent.com/csf-helm-stable
                 version: 1.15.20
-            namespace: upbound-system
+            namespace: cnf
       patches:
         - type: PatchSet
           patchSetName: target      
@@ -161,7 +161,7 @@ spec:
                 name: helmrepo
                 repository: https://repo.lab.pl.alcatel-lucent.com/csf-helm-stable
                 version: 1.0.3
-            namespace: upbound-system
+            namespace: cnf
       patches:
         - type: PatchSet
           patchSetName: target      
@@ -202,7 +202,7 @@ spec:
             chart:
                 name: zts-services
                 repository: http://10.92.133.68/charts/
-            namespace: upbound-system
+            namespace: cnf
       patches:
         - type: PatchSet
           patchSetName: target      
