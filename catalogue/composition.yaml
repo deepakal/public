@@ -20,41 +20,6 @@ spec:
           toFieldPath: spec.providerConfigRef.name
 
   resources:
-    - name: profile_value_file
-      base:
-        apiVersion: kubernetes.crossplane.io/v1alpha1
-        kind: Object
-        metadata:
-          name: profile
-        spec:
-          forProvider:
-            manifest:
-              apiVersion: v1
-              kind: ConfigMap
-              metadata:
-                name: profile
-                namespace: cnf
-              data:
-                  value.yaml: |-
-                    autonomous:
-                      enabled: true
-                    webhook:
-                      validate: false
-                    controller: true
-                    helm3Only: true
-                    checkLabelling: false
-                    namespaced:
-                      enabled: true
-                    nodeSelector: null
-                    tolerations: null
-          managementPolicy: Default
-      patches:
-        - type: PatchSet
-          patchSetName: target      
-        - type: FromCompositeFieldPath
-          fromFieldPath: spec.parameters.profileOperator.namespace
-          toFieldPath: spec.forProvider.manifest.metadata.namespace   
-
     - name: helmrepo_value_file
       base:
         apiVersion: kubernetes.crossplane.io/v1alpha1
@@ -80,33 +45,6 @@ spec:
           fromFieldPath: spec.parameters.profileOperator.namespace
           toFieldPath: spec.forProvider.manifest.metadata.namespace   
 
-    - name: zts_value_file
-      base:
-        apiVersion: kubernetes.crossplane.io/v1alpha1
-        kind: Object
-        metadata:
-          name: zts
-        spec:
-          forProvider:
-            manifest:
-              apiVersion: v1
-              kind: ConfigMap
-              metadata:
-                name: zts
-                namespace: cnf
-              data:
-                  value.yaml: |-
-                    global: 
-                      imageRegistry: csf-docker-delivered.repo.lab.pl.alcatel-lucent.com
-                    autoremove: true
-          managementPolicy: Default
-      patches:
-        - type: PatchSet
-          patchSetName: target      
-        - type: FromCompositeFieldPath
-          fromFieldPath: spec.parameters.profileOperator.namespace
-          toFieldPath: spec.forProvider.manifest.metadata.namespace   
-
   
     - name: profile_operator
       base:
@@ -117,10 +55,22 @@ spec:
         spec:
           forProvider:
             chart:
-                name: ncm-app
-                repository: https://repo.lab.pl.alcatel-lucent.com/csf-helm-stable
-                version: 1.15.20
+              name: ncm-app
+              repository: https://repo.lab.pl.alcatel-lucent.com/csf-helm-stable
+              version: 1.15.20
             namespace: cnf
+            values:
+              autonomous:
+                enabled: true
+              webhook:
+                validate: false
+              controller: true
+              helm3Only: true
+              checkLabelling: false
+              namespaced:
+                enabled: true
+              nodeSelector: null
+              tolerations: null
       patches:
         - type: PatchSet
           patchSetName: target      
@@ -139,15 +89,6 @@ spec:
         - type: FromCompositeFieldPath
           fromFieldPath: spec.parameters.profileOperator.namespace
           toFieldPath: spec.forProvider.namespace
-        - type: FromCompositeFieldPath
-          fromFieldPath: spec.parameters.profileOperator.valueFrom.key
-          toFieldPath: spec.forProvider.valuesFrom[0].configMapKeyRef.key
-        - type: FromCompositeFieldPath
-          fromFieldPath: spec.parameters.profileOperator.valueFrom.name
-          toFieldPath: spec.forProvider.valuesFrom[0].configMapKeyRef.name
-        - type: FromCompositeFieldPath
-          fromFieldPath: spec.parameters.profileOperator.namespace
-          toFieldPath: spec.forProvider.valuesFrom[0].configMapKeyRef.namespace
 
     - name: helm_repo
       base:
@@ -158,9 +99,9 @@ spec:
         spec:
           forProvider:
             chart:
-                name: helmrepo
-                repository: https://repo.lab.pl.alcatel-lucent.com/csf-helm-stable
-                version: 1.0.3
+              name: helmrepo
+              repository: https://repo.lab.pl.alcatel-lucent.com/csf-helm-stable
+              version: 1.0.3
             namespace: cnf
       patches:
         - type: PatchSet
@@ -200,9 +141,13 @@ spec:
         spec:
           forProvider:
             chart:
-                name: zts-services
-                repository: http://10.92.133.68/charts/
+              name: zts-services
+              repository: http://10.92.133.68/charts/
             namespace: cnf
+            values:
+              global: 
+                imageRegistry: csf-docker-delivered.repo.lab.pl.alcatel-lucent.com
+              autoremove: true            
       patches:
         - type: PatchSet
           patchSetName: target      
@@ -220,13 +165,4 @@ spec:
           toFieldPath: spec.forProvider.chart.repository
         - type: FromCompositeFieldPath
           fromFieldPath: spec.parameters.ztsService.namespace
-          toFieldPath: spec.forProvider.namespace
-        - type: FromCompositeFieldPath
-          fromFieldPath: spec.parameters.ztsService.valueFrom.key
-          toFieldPath: spec.forProvider.valuesFrom[0].configMapKeyRef.key
-        - type: FromCompositeFieldPath
-          fromFieldPath: spec.parameters.ztsService.valueFrom.name
-          toFieldPath: spec.forProvider.valuesFrom[0].configMapKeyRef.name
-        - type: FromCompositeFieldPath
-          fromFieldPath: spec.parameters.ztsService.namespace
-          toFieldPath: spec.forProvider.valuesFrom[0].configMapKeyRef.namespace 
+          toFieldPath: spec.forProvider.namespace      
