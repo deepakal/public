@@ -22,6 +22,18 @@ spec:
       chartVersion: 1.15.20
       repository: https://repo.cci.nokia.net/artifactory/csf-helm-stable/
       namespace: cnf
+      values:
+        autonomous:
+          enabled: true
+        webhook:
+          validate: false
+        controller: true
+        helm3Only: true
+        checkLabelling: false
+        namespaced:
+          enabled: true    
+        nodeSelector: ""
+        tolerations: ""
     helmrepo:
       releaseName: custom-helmrepo
       chartName: helmrepo
