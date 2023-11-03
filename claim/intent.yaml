@@ -22,9 +22,6 @@ spec:
       chartVersion: 1.15.20
       repository: https://repo.cci.nokia.net/artifactory/csf-helm-stable/
       namespace: cnf
-      valueFrom:
-        key: value.yaml
-        name: profile
     helmrepo:
       releaseName: custom-helmrepo
       chartName: helmrepo
@@ -39,8 +36,5 @@ spec:
       chartName: zts-services
       repository: http://10.92.133.68/charts/
       namespace: cnf
-      valueFrom:
-        key: value.yaml
-        name: zts
 
   resourceCompositionName: zts
