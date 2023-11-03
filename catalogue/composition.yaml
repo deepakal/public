@@ -89,6 +89,9 @@ spec:
         - type: FromCompositeFieldPath
           fromFieldPath: spec.parameters.profileOperator.namespace
           toFieldPath: spec.forProvider.namespace
+        - type: FromCompositeFieldPath
+          fromFieldPath: spec.parameters.profileOperator.values
+          toFieldPath: spec.forProvider.values
 
     - name: helm_repo
       base:
