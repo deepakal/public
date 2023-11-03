@@ -59,11 +59,6 @@ spec:
               repository: https://repo.lab.pl.alcatel-lucent.com/csf-helm-stable
               version: 1.15.20
             namespace: cnf
-            set:
-              - name: nodeSelector
-                value: ""
-              - name: tolerations
-                value: ""
             values:
               autonomous:
                 enabled: true
@@ -73,7 +68,9 @@ spec:
               helm3Only: true
               checkLabelling: false
               namespaced:
-                enabled: true              
+                enabled: true    
+              nodeSelector: ""
+              tolerations: ""
       patches:
         - type: PatchSet
           patchSetName: target      
