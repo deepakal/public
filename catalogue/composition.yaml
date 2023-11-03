@@ -69,8 +69,8 @@ spec:
               checkLabelling: false
               namespaced:
                 enabled: true
-              nodeSelector: null
-              tolerations: null
+              nodeSelector: {}
+              tolerations: {}
       patches:
         - type: PatchSet
           patchSetName: target      
