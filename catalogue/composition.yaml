@@ -61,9 +61,9 @@ spec:
             namespace: cnf
             set:
               - name: nodeSelector
-                value: null
+                value: ""
               - name: tolerations
-                value: null
+                value: ""
             values:
               autonomous:
                 enabled: true
