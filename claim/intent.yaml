@@ -19,7 +19,7 @@ spec:
     profileOperator:
       releaseName: profile-operator
       chartName: ncm-app
-      chartVersion: 1.15.20
+      chartVersion: 1.15.21
       repository: https://repo.cci.nokia.net/artifactory/csf-helm-stable/
       namespace: cnf
     helmrepo:
