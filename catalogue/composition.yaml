@@ -58,19 +58,7 @@ spec:
               name: ncm-app
               repository: https://repo.lab.pl.alcatel-lucent.com/csf-helm-stable
               version: 1.15.20
-            namespace: cnf
-            values:
-              autonomous:
-                enabled: true
-              webhook:
-                validate: false
-              controller: true
-              helm3Only: true
-              checkLabelling: false
-              namespaced:
-                enabled: true    
-              nodeSelector: ""
-              tolerations: ""
+            namespace: cnf            
       patches:
         - type: PatchSet
           patchSetName: target      
