@@ -43,7 +43,7 @@ spec:
     ztsService:
       releaseName: zts-services
       chartName: zts-services
-      chartVersion: 4.0.0
+      chartVersion: 5.0.0
       repository: http://10.92.133.68/charts/
       namespace: cnf
 
