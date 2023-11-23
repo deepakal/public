@@ -1,6 +1,6 @@
 # general app-profile values
 parallel: false
-autoremove: false
+autoremove: true
 failfast: true
 skiptags: ""
 tags: ""
