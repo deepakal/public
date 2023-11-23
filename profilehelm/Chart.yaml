@@ -1,0 +1,8 @@
+apiVersion: v1
+appVersion: 2.0.0
+description: Lifecycle management operations for zts services using Profile Operator
+maintainers:
+- email: ztsl@nokia.com
+  name: ztsluser
+name: zts-services
+version: 5.0.0
