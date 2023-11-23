@@ -1,0 +1,21 @@
+apiVersion: app.csf.nokia.com/v1
+kind: Profile
+metadata:
+  name: {{ .Release.Name }}
+  labels:
+    app.kubernetes.io/name:  {{ .Chart.Name }}
+    app.kubernetes.io/version:  {{ .Chart.AppVersion }}
+    app.kubernetes.io/component:  profile
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+spec:
+{{- if .Values.global }}
+{{- if .Values.global.imageRegistry }}
+  registry: {{ .Values.global.imageRegistry }}
+{{- end }}
+{{- end }}
+  skipTags: {{ list (default "" .Values.skiptags) }}
+  tags: {{ list (default "" .Values.tags) }}
+  traits:
+    autoremove: {{ hasKey .Values "autoremove" | ternary .Values.autoremove false }}
+    failfast: {{ hasKey .Values "failfast" | ternary .Values.failfast true }}
+    parallel: {{ hasKey .Values "parallel" | ternary .Values.parallel false }}
