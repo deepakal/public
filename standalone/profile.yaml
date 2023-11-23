@@ -1,0 +1,17 @@
+apiVersion: app.csf.nokia.com/v1
+kind: Profile
+metadata:
+  name: zts-services
+  labels:
+    app.kubernetes.io/name:  zts-services
+    app.kubernetes.io/version:  5.0.0
+    app.kubernetes.io/component:  profile
+    app.kubernetes.io/managed-by: helm
+spec:
+  registry: csf-docker-delivered.repo.lab.pl.alcatel-lucent.com
+  skipTags: []
+  tags: []
+  traits:
+    autoremove: true
+    failfast: true
+    parallel: false
