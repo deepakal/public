@@ -1,0 +1,3 @@
+version: 1.11.47
+description: Lifecycle management operations for zts services
+name: zts-services
