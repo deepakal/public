@@ -1,0 +1,2541 @@
+# general app-profile values
+parallel: false
+autoremove: false
+failfast: true
+skiptags: ""
+tags: ""
+nameOverride: ""
+fullnameOverride: ""
+injectExample: true
+
+lcminstallflags: "--timeout 1500"
+lcmupgradeflags: "--reset-values --install --timeout 1500"
+lcmrollbackflags: "--timeout 900"
+lcmdeleteflags: "--timeout 1500"
+
+# zts helm values (cbnd plato + ref file)
+EventProcessingService:
+  enabled: true
+  efsesymac:
+    efsmonitor:
+      efsmonitorReplicaCount: 1
+      efsmonitor:
+        resources:
+          requests:
+            memory: 450Mi
+            cpu: 10m
+          limits:
+            memory: 450Mi
+            cpu: 50m
+      cbursidecar:
+        resources:
+          requests:
+            memory: 16Mi
+            cpu: 10m
+          limits:
+            memory: 120Mi
+            cpu: 50m
+      fluentbit:
+        resources:
+          requests:
+            memory: 90Mi
+            cpu: 23m
+          limits:
+            memory: 170Mi
+            cpu: 50m
+      envoysidecar:
+        resources:
+          requests:
+            memory: 120Mi
+            cpu: 5m
+          limits:
+            memory: 160Mi
+            cpu: 50m
+      consulagent:
+        resources:
+          requests:
+            memory: 50Mi
+            cpu: 6m
+          limits:
+            memory: 75Mi
+            cpu: 50m
+      registration:
+        resources:
+          requests:
+            memory: 20Mi
+            cpu: 5m
+          limits:
+            memory: 20Mi
+            cpu: 25m
+    esymacservice:
+      storageClass: csi-cephfs
+      accessModes: ReadWriteOnce
+      esymachelper:
+        resources:
+          requests:
+            memory: 120Mi
+            cpu: 25m
+          limits:
+            memory: 120Mi
+            cpu: 25m
+      esymacservice:
+        resources:
+          requests:
+            memory: 2048Mi
+            cpu: 1000m
+          limits:
+            memory: 3048Mi
+            cpu: 1200m
+      cbursidecar:
+        resources:
+          requests:
+            memory: 120Mi
+            cpu: 30m
+          limits:
+            memory: 120Mi
+            cpu: 30m
+      fmesymacagent:
+        resources:
+          requests:
+            memory: 512Mi
+            cpu: 200m
+          limits:
+            memory: 512Mi
+            cpu: 200m
+      pmesymacagent:
+        resources:
+          requests:
+            memory: 1024Mi
+            cpu: 750m
+          limits:
+            memory: 1024Mi
+            cpu: 750m
+      fluentbit:
+        resources:
+          requests:
+            memory: 1024Mi
+            cpu: 100m
+          limits:
+            memory: 1024Mi
+            cpu: 100m
+      envoysidecar:
+        resources:
+          requests:
+            memory: 170Mi
+            cpu: 50m
+          limits:
+            memory: 190Mi
+            cpu: 50m
+      consulagent:
+        resources:
+          requests:
+            memory: 70Mi
+            cpu: 50m
+          limits:
+            memory: 75Mi
+            cpu: 50m
+      registration:
+        resources:
+          requests:
+            memory: 20Mi
+            cpu: 5m
+          limits:
+            memory: 256Mi
+            cpu: 25m
+  eventreceiver:
+    eventreceiverReplicaCount: 2
+    eventreceiver:
+      resources:
+        requests:
+          memory: 300Mi
+          cpu: 110m
+        limits:
+          memory: 300Mi
+          cpu: 110m
+    consulagent:
+      resources:
+        requests:
+          memory: 70Mi
+          cpu: 50m
+        limits:
+          memory: 75Mi
+          cpu: 50m
+    fluentbit:
+      resources:
+        requests:
+          memory: 70Mi
+          cpu: 50m
+        limits:
+          memory: 200Mi
+          cpu: 50m
+    envoysidecar:
+      resources:
+        requests:
+          memory: 300Mi
+          cpu: 100m
+        limits:
+          memory: 500Mi
+          cpu: 500m
+    cbursidecar:
+      resources:
+        requests:
+          memory: 16Mi
+          cpu: 10m
+        limits:
+          memory: 120Mi
+          cpu: 30m
+    registration:
+      resources:
+        requests:
+          memory: 20Mi
+          cpu: 25m
+        limits:
+          memory: 20Mi
+          cpu: 25m
+  fmprocessor:
+    fmprocesorReplicaCount: 2
+    config:
+      storageClass: csi-cephfs
+    cbursidecar:
+      resources:
+        requests:
+          memory: 120Mi
+          cpu: 30m
+        limits:
+          memory: 120Mi
+          cpu: 30m
+    fmprocessor:
+      resources:
+        requests:
+          memory: 2048Mi
+          cpu: 500m
+        limits:
+          memory: 2048Mi
+          cpu: 500m
+    fluentbit:
+      resources:
+        requests:
+          memory: 120Mi
+          cpu: 50m
+        limits:
+          memory: 200Mi
+          cpu: 50m
+    envoysidecar:
+      resources:
+        requests:
+          memory: 200Mi
+          cpu: 125m
+        limits:
+          memory: 200Mi
+          cpu: 125m
+    consulagent:
+      resources:
+        requests:
+          memory: 50Mi
+          cpu: 50m
+        limits:
+          memory: 75Mi
+          cpu: 50m
+    registration:
+      resources:
+        requests:
+          memory: 20Mi
+          cpu: 25m
+        limits:
+          memory: 20Mi
+          cpu: 25m
+  pmprocessor:
+    pmprocesorReplicaCount: 2
+    config:
+      storageClass: csi-cephfs
+      accessModes: ReadWriteMany
+    cbursidecar:
+      resources:
+        requests:
+          memory: 120Mi
+          cpu: 30m
+        limits:
+          memory: 120Mi
+          cpu: 30m
+    pmprocessor:
+      resources:
+        requests:
+          memory: 2700Mi
+          cpu: 750m
+        limits:
+          memory: 2700Mi
+          cpu: 750m
+    fluentbit:
+      resources:
+        requests:
+          memory: 100Mi
+          cpu: 50m
+        limits:
+          memory: 170Mi
+          cpu: 50m
+    envoysidecar:
+      resources:
+        requests:
+          memory: 180Mi
+          cpu: 50m
+        limits:
+          memory: 180Mi
+          cpu: 50m
+    consulagent:
+      resources:
+        requests:
+          memory: 70Mi
+          cpu: 50m
+        limits:
+          memory: 75Mi
+          cpu: 50m
+  resourceManager:
+    resourceManagerReplicaCount: 1
+    storageClass: csi-cephfs
+    accessModes: ReadWriteOnce
+    resourcemanager:
+      resources:
+        requests:
+          memory: 90Mi
+          cpu: 8m
+        limits:
+          memory: 150Mi
+          cpu: 100m
+    fluentbit:
+      resources:
+        requests:
+          memory: 170Mi
+          cpu: 28m
+        limits:
+          memory: 170Mi
+          cpu: 120m
+    envoysidecar:
+      resources:
+        requests:
+          memory: 120Mi
+          cpu: 6m
+        limits:
+          memory: 160Mi
+          cpu: 50m
+    consulagent:
+      resources:
+        requests:
+          memory: 50Mi
+          cpu: 6m
+        limits:
+          memory: 75Mi
+          cpu: 50m
+    cbursidecar:
+      resources:
+        requests:
+          memory: 16Mi
+          cpu: 10m
+        limits:
+          memory: 120Mi
+          cpu: 30m
+    registration:
+      resources:
+        requests:
+          memory: 20Mi
+          cpu: 5m
+        limits:
+          memory: 20Mi
+          cpu: 25m
+  efsclient:
+    efsclient:
+      resources:
+        requests:
+          memory: 200Mi
+          cpu: 170m
+        limits:
+          memory: 300Mi
+          cpu: 170m
+    envoysidecar:
+      resources:
+        requests:
+          memory: 8Mi
+          cpu: 5m
+        limits:
+          memory: 150Mi
+          cpu: 50m
+    consulagent:
+      resources:
+        requests:
+          memory: 8Mi
+          cpu: 5m
+        limits:
+          memory: 75Mi
+          cpu: 50m
+    registration:
+      resources:
+        requests:
+          memory: 8Mi
+          cpu: 5m
+        limits:
+          memory: 20Mi
+          cpu: 25m
+    cbursidecar:
+      resources:
+        requests:
+          memory: 16Mi
+          cpu: 10m
+        limits:
+          memory: 120Mi
+          cpu: 30m
+IntegrationService:
+  enabled: true
+  integration:
+    Replicas: 1
+    storageClass: csi-cephfs
+    accessModes: ReadWriteMany
+    consulagent:
+      resources:
+        requests:
+          memory: 70Mi
+          cpu: 50m
+        limits:
+          memory: 75Mi
+          cpu: 50m
+    ztssettings:
+      resources:
+        requests:
+          memory: 150Mi
+          cpu: 150m
+        limits:
+          memory: 150Mi
+          cpu: 150m
+    fluentdconfig:
+      resources:
+        limits:
+          cpu: 200m
+          memory: 500Mi
+        requests:
+          cpu: 60m
+          memory: 200Mi
+    dynamicadaptation:
+      resources:
+        requests:
+          memory: 150Mi
+          cpu: 50m
+        limits:
+          memory: 170Mi
+          cpu: 50m
+    integration:
+      resources:
+        requests:
+          memory: 150Mi
+          cpu: 50m
+        limits:
+          memory: 150Mi
+          cpu: 50m
+    envoysidecar:
+      resources:
+        requests:
+          memory: 130Mi
+          cpu: 50m
+        limits:
+          memory: 170Mi
+          cpu: 50m
+    fluentbit:
+      resources:
+        requests:
+          memory: 100Mi
+          cpu: 50m
+        limits:
+          memory: 170Mi
+          cpu: 50m
+    cbursidecar:
+      resources:
+        requests:
+          memory: 120Mi
+          cpu: 50m
+        limits:
+          memory: 120Mi
+          cpu: 50m
+    registration:
+      resources:
+        requests:
+          memory: 20Mi
+          cpu: 25m
+        limits:
+          memory: 20Mi
+          cpu: 25m
+LogProcessingService:
+  enabled: true
+  logreceiver:
+    logreceiverReplicaCount: 2
+    storageClass: csi-cephfs
+    accessModes: ReadWriteMany
+    streamstore:
+      accessModes: ReadWriteOnce
+    logstorepvcsize: 30Gi
+    consulagent:
+      resources:
+        requests:
+          memory: 50Mi
+          cpu: 50m
+        limits:
+          memory: 75Mi
+          cpu: 50m
+    logreceiver:
+      resources:
+        requests:
+          memory: 500Mi
+          cpu: 250m
+        limits:
+          memory: 500Mi
+          cpu: 250m
+    logagent:
+      resources:
+        requests:
+          memory: 300Mi
+          cpu: 50m
+        limits:
+          memory: 300Mi
+          cpu: 50m
+    envoysidecar:
+      resources:
+        requests:
+          memory: 200Mi
+          cpu: 50m
+        limits:
+          memory: 200Mi
+          cpu: 50m
+    registration:
+      resources:
+        requests:
+          memory: 20Mi
+          cpu: 25m
+        limits:
+          memory: 20Mi
+          cpu: 25m
+    cbursidecar:
+      resources:
+        requests:
+          memory: 16Mi
+          cpu: 10m
+        limits:
+          memory: 120Mi
+          cpu: 50m
+    streamserver:
+      resources:
+        requests:
+          memory: 2048Mi
+          cpu: 250m
+        limits:
+          memory: 2048Mi
+          cpu: 250m
+MetadataStoreService:
+  enabled: true
+  metadatastore:
+    Replicas: 1
+    storageClass: csi-cephfs
+    accessModes: ReadWriteMany
+    consulagent:
+      resources:
+        requests:
+          memory: 50Mi
+          cpu: 50m
+        limits:
+          memory: 75Mi
+          cpu: 50m
+    metadatastore:
+      resources:
+        requests:
+          memory: 250Mi
+          cpu: 250m
+        limits:
+          memory: 250Mi
+          cpu: 250m
+    fluentbit:
+      resources:
+        requests:
+          memory: 100Mi
+          cpu: 50m
+        limits:
+          memory: 170Mi
+          cpu: 50m
+    envoysidecar:
+      resources:
+        requests:
+          memory: 100Mi
+          cpu: 50m
+        limits:
+          memory: 256Mi
+          cpu: 50m
+    registration:
+      resources:
+        requests:
+          memory: 20Mi
+          cpu: 25m
+        limits:
+          memory: 20Mi
+          cpu: 25m
+    cbursidecar:
+      resources:
+        requests:
+          memory: 120Mi
+          cpu: 30m
+        limits:
+          memory: 120Mi
+          cpu: 30m
+SecretStore:
+  enabled: true
+  cmdb:
+    cluster_type: master-slave
+    mariadb:
+      count: 3
+      persistence:
+        storageClass: csi-cephfs
+        size: 1Gi
+        backup:
+          storageClass: csi-cephfs
+          size: 1Gi
+      resources:
+        requests:
+          memory: 300Mi
+          cpu: 250m
+        limits:
+          memory: 300Mi
+          cpu: 250m
+    admin:
+      persistence:
+        storageClass: csi-cephfs
+      resources:
+        requests:
+          memory: 150Mi
+          cpu: 52m
+        limits:
+          memory: 220Mi
+          cpu: 75m
+    cbur:
+      resources:
+        requests:
+          memory: 16Mi
+          cpu: 10m
+        limits:
+          memory: 120Mi
+          cpu: 30m
+    initContainers:
+      resources:
+        limits:
+          cpu: 100m
+          memory: 64Mi
+        requests:
+          cpu: 100m
+          memory: 64Mi
+    maxscale:
+      count: 2
+      resources:
+        requests:
+          memory: 256Mi
+          cpu: 250m
+        limits:
+          memory: 512Mi
+          cpu: 500m
+    nodeAntiAffinity: soft
+  vaultagent:
+    replicaCount: 2
+    vaultagentStorageClass: csi-cephfs
+    size: 2Gi
+    resources:
+      requests:
+        cpu: 10m
+        memory: 16Mi
+      limits:
+        cpu: 75m
+        memory: 1400Mi
+    fluentbit:
+      resources:
+        requests:
+          memory: 8Mi
+          cpu: 5m
+        limits:
+          memory: 180Mi
+          cpu: 100m
+    envoysidecar:
+      resources:
+        requests:
+          memory: 8Mi
+          cpu: 5m
+        limits:
+          memory: 170Mi
+          cpu: 50m
+    consulagent:
+      resources:
+        requests:
+          memory: 8Mi
+          cpu: 5m
+        limits:
+          memory: 75Mi
+          cpu: 25m
+    registration:
+      resources:
+        requests:
+          memory: 20Mi
+          cpu: 5m
+        limits:
+          memory: 20Mi
+          cpu: 25m
+    cbur:
+      resources:
+        requests:
+          memory: 16Mi
+          cpu: 10m
+        limits:
+          memory: 120Mi
+          cpu: 30m
+  crdb-redisio:
+    server:
+      count: 3
+      persistence:
+        storageClass: csi-cephfs
+        size: 1Gi
+      resources:
+        requests:
+          memory: 150Mi
+          cpu: 40m
+        limits:
+          memory: 400Mi
+          cpu: 200m
+    sentinel:
+      enabled: true
+      resources:
+        requests:
+          memory: 100Mi
+          cpu: 17m
+        limits:
+          memory: 100Mi
+          cpu: 25m
+    rolemon:
+      resources:
+        requests:
+          memory: 50Mi
+          cpu: 5m
+        limits:
+          memory: 120Mi
+          cpu: 25m
+    admin:
+      persistence:
+        storageClass: csi-cephfs
+      resources:
+        requests:
+          memory: 220Mi
+          cpu: 52m
+        limits:
+          memory: 220Mi
+          cpu: 85m
+    cbur:
+      resources:
+        requests:
+          memory: 16Mi
+          cpu: 10m
+        limits:
+          memory: 120Mi
+          cpu: 50m
+    initcontainer:
+      resources:
+        requests:
+          memory: 256Mi
+          cpu: 100m
+        limits:
+          memory: 256Mi
+          cpu: 250m
+  cskm:
+    CLUSTER_SIZE: 1
+    backendFileStorage:
+      class: csi-cephfs
+    logStorage:
+      class: csi-cephfs
+    initBusyBoxContainer:
+      resources:
+        requests:
+          memory: 256Mi
+          cpu: 250m
+        limits:
+          memory: 256Mi
+          cpu: 250m
+    resources:
+      requests:
+        memory: 120Mi
+        cpu: 24m
+      limits:
+        memory: 256Mi
+        cpu: 100m
+    cbur:
+      backupStorage:
+        class: csi-cephfs
+      resources:
+        requests:
+          memory: 200Mi
+          cpu: 5m
+        limits:
+          memory: 120Mi
+          cpu: 30m
+UMService:
+  ckey:
+    secretCredentials:
+      secret: ""
+    cbur:
+      backupStorage:
+        class: csi-cephfs
+      enabled: true
+      resources:
+        requests:
+          memory: 16Mi
+          cpu: 10m
+        limits:
+          memory: 256Mi
+          cpu: 50m
+    cmdb:
+      cbur:
+        enabled: true
+        resources:
+          requests:
+            memory: 16Mi
+            cpu: 10m
+          limits:
+            memory: 256Mi
+            cpu: 50m
+      mariadb:
+        persistence:
+          backup:
+            enabled: true
+            storageClass: csi-cephfs
+            size: 1Gi
+          enabled: true
+          storageClass: csi-cephfs
+          size: 1Gi
+          temp:
+            storageClass: glusterfs-storageclass
+            size: 5Gi
+        count: 3
+        resources:
+          requests:
+            memory: 256Mi
+            cpu: 200m
+          limits:
+            memory: 512Mi
+            cpu: 250m
+      cluster_type: master-slave
+      admin:
+        persistence:
+          storageClass: csi-cephfs
+        resources:
+          requests:
+            memory: 256Mi
+            cpu: 100m
+          limits:
+            memory: 512Mi
+            cpu: 200m
+      maxscale:
+        count: 2
+        resources:
+          requests:
+            memory: 256Mi
+            cpu: 250m
+          limits:
+            memory: 512Mi
+            cpu: 500m
+      nodeAntiAffinity: soft
+    ipType: IPv4
+    raiseFailedLoginAlarm: false
+    replicaCount: 2
+    resources:
+      requests:
+        memory: 2048Mi
+        cpu: 100m
+      limits:
+        memory: 2048Mi
+        cpu: 1400m
+    initBusyBoxContainer:
+      resources:
+        requests:
+          memory: 256Mi
+          cpu: 250m
+        limits:
+          memory: 256Mi
+          cpu: 250m
+    consulagent:
+      resources:
+        requests:
+          memory: 8Mi
+          cpu: 5m
+        limits:
+          memory: 75Mi
+          cpu: 25m
+    umalarm:
+      resources:
+        requests:
+          memory: 8Mi
+          cpu: 5m
+        limits:
+          memory: 128Mi
+          cpu: 25m
+    fluentbit:
+      resources:
+        requests:
+          memory: 8Mi
+          cpu: 5m
+        limits:
+          memory: 170Mi
+          cpu: 70m
+    envoysidecar:
+      resources:
+        requests:
+          memory: 8Mi
+          cpu: 5m
+        limits:
+          memory: 256Mi
+          cpu: 100m
+    regumservice:
+      resources:
+        requests:
+          memory: 8Mi
+          cpu: 5m
+        limits:
+          memory: 20Mi
+          cpu: 25m
+clustermonitorservice:
+  enabled: true
+  ztsclustermonitoragent:
+    ztsclustermonitoragent:
+      resources:
+        requests:
+          memory: 66Mi
+          cpu: 5m
+        limits:
+          memory: 250Mi
+          cpu: 50m
+    envoysidecar:
+      resources:
+        requests:
+          memory: 100Mi
+          cpu: 5m
+        limits:
+          memory: 150Mi
+          cpu: 50m
+    fluentbit:
+      resources:
+        requests:
+          memory: 100Mi
+          cpu: 12m
+        limits:
+          memory: 170Mi
+          cpu: 25m
+    registration:
+      resources:
+        requests:
+          memory: 20Mi
+          cpu: 5m
+        limits:
+          memory: 20Mi
+          cpu: 25m
+    cbursidecar:
+      resources:
+        requests:
+          memory: 16Mi
+          cpu: 10m
+        limits:
+          memory: 120Mi
+          cpu: 50m
+    consulagent:
+      resources:
+        requests:
+          memory: 50Mi
+          cpu: 5m
+        limits:
+          memory: 75Mi
+          cpu: 25m
+  clustermonitorserver:
+    clustermonitor:
+      resources:
+        requests:
+          memory: 33Mi
+          cpu: 5m
+        limits:
+          memory: 150Mi
+          cpu: 50m
+    envoysidecar:
+      resources:
+        requests:
+          memory: 110Mi
+          cpu: 5m
+        limits:
+          memory: 160Mi
+          cpu: 50m
+    fluentbit:
+      resources:
+        requests:
+          memory: 70Mi
+          cpu: 25m
+        limits:
+          memory: 170Mi
+          cpu: 25m
+    cbursidecar:
+      resources:
+        requests:
+          memory: 16Mi
+          cpu: 10m
+        limits:
+          memory: 120Mi
+          cpu: 30m
+    registration:
+      resources:
+        requests:
+          memory: 20Mi
+          cpu: 5m
+        limits:
+          memory: 20Mi
+          cpu: 25m
+    consulagent:
+      resources:
+        requests:
+          memory: 50Mi
+          cpu: 5m
+        limits:
+          memory: 75Mi
+          cpu: 25m
+cmserver:
+  cmserverenv:
+    cmserver2Enabled: true
+  enabled: true
+  replicaCount:
+    cmreader: 3
+  storageClass:
+    cmcontroller: csi-cephfs
+    cmserver: csi-cephfs
+  pvcStorage:
+    cmserverpvc: 1Gi
+    confdpvc: 1Gi
+    controllercmdatapvc: 2Gi
+  cmreader:
+    resources:
+      requests:
+        memory: 350Mi
+        cpu: 10m
+      limits:
+        memory: 500Mi
+        cpu: 100m
+    fluentbit:
+      resources:
+        requests:
+          memory: 170Mi
+          cpu: 50m
+        limits:
+          memory: 250Mi
+          cpu: 50m
+    envoysidecar:
+      resources:
+        requests:
+          memory: 120Mi
+          cpu: 5m
+        limits:
+          memory: 200Mi
+          cpu: 50m
+    consulagent:
+      resources:
+        requests:
+          memory: 50Mi
+          cpu: 5m
+        limits:
+          memory: 75Mi
+          cpu: 50m
+    registration:
+      resources:
+        requests:
+          memory: 20Mi
+          cpu: 5m
+        limits:
+          memory: 20Mi
+          cpu: 25m
+    cbur:
+      resources:
+        requests:
+          memory: 50Mi
+          cpu: 5m
+        limits:
+          memory: 50Mi
+          cpu: 50m
+  cmserver:
+    resources:
+      requests:
+        memory: 800Mi
+        cpu: 982m
+      limits:
+        memory: 800Mi
+        cpu: 1000m
+    cbura:
+      resources:
+        requests:
+          memory: 120Mi
+          cpu: 5m
+        limits:
+          memory: 120Mi
+          cpu: 30m
+    fluentbit:
+      resources:
+        requests:
+          memory: 170Mi
+          cpu: 50m
+        limits:
+          memory: 170Mi
+          cpu: 50m
+    envoysidecar:
+      resources:
+        requests:
+          memory: 100Mi
+          cpu: 7m
+        limits:
+          memory: 170Mi
+          cpu: 50m
+    consulagent:
+      resources:
+        requests:
+          memory: 50Mi
+          cpu: 7m
+        limits:
+          memory: 75Mi
+          cpu: 50m
+    registration:
+      resources:
+        requests:
+          memory: 20Mi
+          cpu: 5m
+        limits:
+          memory: 20Mi
+          cpu: 25m
+  cmcontroller:
+    resources:
+      requests:
+        memory: 130Mi
+        cpu: 6m
+      limits:
+        memory: 256Mi
+        cpu: 50m
+    fluentbit:
+      resources:
+        requests:
+          memory: 60Mi
+          cpu: 11m
+        limits:
+          memory: 170Mi
+          cpu: 50m
+    envoysidecar:
+      resources:
+        requests:
+          memory: 110Mi
+          cpu: 6m
+        limits:
+          memory: 256Mi
+          cpu: 50m
+    consulagent:
+      resources:
+        requests:
+          memory: 50Mi
+          cpu: 6m
+        limits:
+          memory: 75Mi
+          cpu: 50m
+    registration:
+      resources:
+        requests:
+          memory: 20Mi
+          cpu: 5m
+        limits:
+          memory: 20Mi
+          cpu: 25m
+    cbur:
+      resources:
+        requests:
+          memory: 50Mi
+          cpu: 5m
+        limits:
+          memory: 50Mi
+          cpu: 50m
+  custom-metrics:
+    kubectl:
+      resources:
+        requests:
+          memory: 100Mi
+          cpu: 62m
+        limits:
+          memory: 200Mi
+          cpu: 75m
+    cburasidecar:
+      resources:
+        requests:
+          memory: 120Mi
+          cpu: 5m
+        limits:
+          memory: 120Mi
+          cpu: 50m
+    fluentbit:
+      resources:
+        requests:
+          memory: 80Mi
+          cpu: 23m
+        limits:
+          memory: 170Mi
+          cpu: 50m
+    envoysidecar:
+      resources:
+        requests:
+          memory: 110Mi
+          cpu: 5m
+        limits:
+          memory: 170Mi
+          cpu: 50m
+    consulagent:
+      resources:
+        requests:
+          memory: 60Mi
+          cpu: 6m
+        limits:
+          memory: 75Mi
+          cpu: 25m
+    registration:
+      resources:
+        requests:
+          memory: 20Mi
+          cpu: 5m
+        limits:
+          memory: 20Mi
+          cpu: 25m
+  crdb-redisio:
+    server:
+      count: 3
+      resources:
+        requests:
+          memory: 400Mi
+          cpu: 40m
+        limits:
+          memory: 400Mi
+          cpu: 200m
+    sentinel:
+      enabled: true
+      resources:
+        requests:
+          memory: 100Mi
+          cpu: 5m
+        limits:
+          memory: 100Mi
+          cpu: 25m
+    rolemon:
+      resources:
+        requests:
+          memory: 100Mi
+          cpu: 10m
+        limits:
+          memory: 100Mi
+          cpu: 50m
+    admin:
+      persistence:
+        storageClass: csi-cephfs
+      resources:
+        requests:
+          memory: 150Mi
+          cpu: 51m
+        limits:
+          memory: 220Mi
+          cpu: 85m
+    cbur:
+      resources:
+        requests:
+          memory: 120Mi
+          cpu: 5m
+        limits:
+          memory: 120Mi
+          cpu: 50m
+    initcontainer:
+      resources:
+        requests:
+          memory: 256Mi
+          cpu: 100m
+        limits:
+          memory: 256Mi
+          cpu: 250m
+    global:
+      persistentVolume:
+        storageClass: csi-cephfs
+        size: 5Gi
+config:
+  enabled: true
+  replicaCount: 2
+  configservercontainer:
+    resources:
+      requests:
+        memory: 120Mi
+        cpu: 25m
+      limits:
+        memory: 120Mi
+        cpu: 25m
+  fluentbit:
+    resources:
+      requests:
+        memory: 100Mi
+        cpu: 50m
+      limits:
+        memory: 170Mi
+        cpu: 50m
+  envoysidecar:
+    resources:
+      requests:
+        memory: 180Mi
+        cpu: 50m
+      limits:
+        memory: 180Mi
+        cpu: 50m
+  consulagentcontainer:
+    resources:
+      requests:
+        memory: 70Mi
+        cpu: 50m
+      limits:
+        memory: 75Mi
+        cpu: 50m
+  registrationcontainer:
+    resources:
+      requests:
+        memory: 20Mi
+        cpu: 25m
+      limits:
+        memory: 20Mi
+        cpu: 25m
+  cbur:
+    resources:
+      requests:
+        memory: 16Mi
+        cpu: 10m
+      limits:
+        memory: 120Mi
+        cpu: 70m
+  crdb-redisio:
+    server:
+      count: 3
+      resources:
+        requests:
+          memory: 3000Mi
+          cpu: 500m
+        limits:
+          memory: 3000Mi
+          cpu: 1000m
+    sentinel:
+      enabled: true
+      resources:
+        requests:
+          memory: 80Mi
+          cpu: 25m
+        limits:
+          memory: 80Mi
+          cpu: 25m
+    rolemon:
+      resources:
+        requests:
+          memory: 120Mi
+          cpu: 70m
+        limits:
+          memory: 120Mi
+          cpu: 70m
+    admin:
+      persistence:
+        storageClass: csi-cephfs
+      resources:
+        requests:
+          memory: 150Mi
+          cpu: 150m
+        limits:
+          memory: 150Mi
+          cpu: 150m
+    cbur:
+      resources:
+        requests:
+          memory: 256Mi
+          cpu: 50m
+        limits:
+          memory: 256Mi
+          cpu: 50m
+    initcontainer:
+      resources:
+        requests:
+          memory: 256Mi
+          cpu: 100m
+        limits:
+          memory: 512Mi
+          cpu: 500m
+    global:
+      persistentVolume:
+        storageClass: csi-cephfs
+        size: 10Gi
+consulsds:
+  enabled: true
+  consulserver:
+    replicaCount: 3
+    storageClass: csi-cephfs
+    consulserver:
+      resources:
+        requests:
+          memory: 250Mi
+          cpu: 75m
+        limits:
+          memory: 250Mi
+          cpu: 150m
+  consulagent:
+    replicaCount: 3
+    consulagent:
+      resources:
+        requests:
+          memory: 250Mi
+          cpu: 50m
+        limits:
+          memory: 250Mi
+          cpu: 150m
+danmnets:
+  cidr: 10.11.10.0
+  container_prefix: eth1
+  endpoolip: 10.11.10.5
+  host_device: eth3
+  ipv6cidr: '2a00:8a00:a000:4000::'
+  ipv6subnetmask: 64
+  name: danmnets1
+  networktype: ipvlan
+  rt_tables: ""
+  startpoolip: 10.11.10.2
+  subnetmask: 27
+  vlan: ""
+datasync:
+  enabled: true
+  pvcStorage:
+    dsserverpvc: 5Gi
+  replicaCount:
+    dsserver: 2
+    dsreader: 2
+  storageClass:
+    dsserverStorageClass: csi-cephfs
+  dsserver:
+    resources:
+      requests:
+        memory: 2570Mi
+        cpu: 9m
+      limits:
+        memory: 2570Mi
+        cpu: 200m
+    cburasidecar:
+      resources:
+        requests:
+          memory: 120Mi
+          cpu: 5m
+        limits:
+          memory: 120Mi
+          cpu: 30m
+    fluentbit:
+      resources:
+        requests:
+          memory: 70Mi
+          cpu: 14m
+        limits:
+          memory: 170Mi
+          cpu: 50m
+    envoysidecar:
+      resources:
+        requests:
+          memory: 409Mi
+          cpu: 5m
+        limits:
+          memory: 409Mi
+          cpu: 50m
+    consulagent:
+      resources:
+        requests:
+          memory: 50Mi
+          cpu: 6m
+        limits:
+          memory: 75Mi
+          cpu: 50m
+    registration:
+      resources:
+        requests:
+          memory: 20Mi
+          cpu: 5m
+        limits:
+          memory: 20Mi
+          cpu: 25m
+  dsreader:
+    resources:
+      requests:
+        memory: 80Mi
+        cpu: 12m
+      limits:
+        memory: 256Mi
+        cpu: 200m
+    cburasidecar:
+      resources:
+        requests:
+          memory: 120Mi
+          cpu: 5m
+        limits:
+          memory: 120Mi
+          cpu: 60m
+    fluentbit:
+      resources:
+        requests:
+          memory: 60Mi
+          cpu: 14m
+        limits:
+          memory: 170Mi
+          cpu: 50m
+    envoysidecar:
+      resources:
+        requests:
+          memory: 2225Mi
+          cpu: 5m
+        limits:
+          memory: 2225Mi
+          cpu: 50m
+    consulagent:
+      resources:
+        requests:
+          memory: 70Mi
+          cpu: 6m
+        limits:
+          memory: 75Mi
+          cpu: 50m
+    registration:
+      resources:
+        requests:
+          memory: 20Mi
+          cpu: 5m
+        limits:
+          memory: 20Mi
+          cpu: 25m
+  dscli:
+    resources:
+      requests:
+        memory: 256Mi
+        cpu: 10m
+      limits:
+        memory: 256Mi
+        cpu: 100m
+    cburasidecar:
+      resources:
+        requests:
+          memory: 120Mi
+          cpu: 5m
+        limits:
+          memory: 120Mi
+          cpu: 30m
+    fluentbit:
+      resources:
+        requests:
+          memory: 60Mi
+          cpu: 25m
+        limits:
+          memory: 170Mi
+          cpu: 50m
+    envoysidecar:
+      resources:
+        requests:
+          memory: 150Mi
+          cpu: 5m
+        limits:
+          memory: 170Mi
+          cpu: 50m
+    consulagent:
+      resources:
+        requests:
+          memory: 60Mi
+          cpu: 6m
+        limits:
+          memory: 75Mi
+          cpu: 50m
+    registration:
+      resources:
+        requests:
+          memory: 20Mi
+          cpu: 5m
+        limits:
+          memory: 20Mi
+          cpu: 25m
+global:
+  AIF_Enabled: 'True'
+  logadminUser:
+    enabled: false
+  daadminUser:
+    enabled: false
+  dsadminUser:
+    enabled: false
+  externalCAForNetact: ""
+  DestinationType:
+    fmelastic: false
+    fmkafka: false
+    logelastic: false
+    logkafka: false
+    sftp: true
+    splunk: true
+  Destination_Type: log_server
+  ExternalDnsIp: "10.10.12.1"
+  FM_Elastic_Index: fmelasticindex
+  FM_Elastic_Server_Address: 10.12.10.5
+  FM_Elastic_Server_Address_Type: IPv4
+  FM_Elastic_Server_Port: 8088
+  FM_Kafka_Server_Address: 10.12.10.6
+  FM_Kafka_Server_Address_Type: IPv4
+  FM_Kafka_Server_Port: 8088
+  FM_Kafka_Topic: fmkafkatopic
+  LogSftpServerPassword: r00t
+  LogSftpServerUsername: root
+  Log_Elastic_Index: logelasticindex
+  Log_Elastic_Server_Address: 10.12.10.3
+  Log_Elastic_Server_Address_Type: IPv4
+  Log_Elastic_Server_Port: 8088
+  Log_Kafka_Server_Address: 10.12.10.4
+  Log_Kafka_Server_Address_Type: IPv4
+  Log_Kafka_Server_Port: 8088
+  Log_Kafka_Topic: logkafkatopic
+  Log_Rsyslog_Protocol: PROTOCOL_TCP_TLS
+  Log_Rsyslog_Server_Address: 10.12.10.4
+  Log_Rsyslog_Server_Address_Type: IPv4
+  Log_Rsyslog_Server_Port: 8088
+  Log_Seggregation_For_Audit_Security_Rsyslog: true
+  Log_Server_Address: 10.12.10.2
+  Log_Server_Address_Type: IPv4
+  Log_Server_Destination_Path: /home/sftp
+  Log_Server_Port: 22
+  NetactMrname: MRC-1/MR-1
+  NetactPlmn: PLMN-PLMN
+  Netact_Dmgr_Address: 10.10.10.10
+  Netact_Dmgr_Address_Type: IPv4
+  Netact_dmgr_password: r00t
+  Netact_dmgr_username: root
+  SplunkToken: '1234'
+  Splunk_Server_Address: 10.12.10.2
+  Splunk_Server_Address_Type: IPv4
+  Splunk_Server_Destination_Path: /services/collector
+  Splunk_Server_Port: 8088
+  Terminate_If_Kibana_Failed: true
+  Terminate_If_VnfDelete_Failed: false
+  TlsEnabledWithNetAct: true
+  VNFVersion: major:21|minor:5.0
+  VNF_Product_Family: PRODUCTFAMILY_ZTS
+  adminpassword: Admin@1234
+  auditLogsRetentionDays: 7
+  audit_log_archive_retention_period: 43200
+  audit_log_retention_period: 2880
+  bcmtversion: '19'
+  casecret: zts1ztssecret
+  caservicefqdn: caserverservice.default.svc.cluster.local
+  cbur:
+    backend_mode: AVAMAR
+    cron_spec: 0 16 * * *
+    max_copy: 2
+  clustername: zts1
+  cnf_specific_visualization_enabled: false
+  collector_tags: default-tag=dnt-jaeger
+  collector_samplingConfig_service1: ""
+  collector_samplingConfig_service1_type: ""
+  collector_samplingConfig_service1_param: 1
+  collector_samplingConfig_service1_operationStrategies_operation: ""
+  collector_samplingConfig_service1_operationStrategies_type: ""
+  collector_samplingConfig_service1_operationStrategies_param: 1
+  collector_samplingConfig_service2: ""
+  collector_samplingConfig_service2_type: ""
+  collector_samplingConfig_service2_param: 1
+  collector_samplingConfig_service2_operationStrategies_operation: ""
+  collector_samplingConfig_service2_operationStrategies_type: ""
+  collector_samplingConfig_service2_operationStrategies_param: 1
+  collector_samplingConfig_service3: ""
+  collector_samplingConfig_service3_type: ""
+  collector_samplingConfig_service3_param: 1
+  collector_samplingConfig_service3_operationStrategies_operation: ""
+  collector_samplingConfig_service3_operationStrategies_type: ""
+  collector_samplingConfig_service3_operationStrategies_param: 1
+  collector_samplingConfig_defaultStrategy_type: probabilistic
+  collector_samplingConfig_defaultStrategy_param: 1
+  compaasdeploy: false
+  consulAgentDnsIp: ""
+  consulAgentDnsIpInt: ""
+  consulAgentDnsPort: 30086
+  consulAgentDnsPortInt: 8600
+  consulAgentSrvNodePort: 30086
+  consulpersistentVolume:
+    enabled: true
+  counteralarmtracelevel: error
+  danmconfig:
+    danm_edge_nw_name: danmed1
+    danm_route: 0.0.0.0/0
+    danm_route_gw: 10.10.10.11
+    subnetmask: 27
+    ztslenvoylbdanmip1: 10.10.10.11
+    ztslenvoylbdanmip2: 10.10.10.11
+  datacenter: "dc1"
+  dbvnfctype: CA
+  debugLogsRetentionDays: 7
+  debug_log_archive_retention_period: 10080
+  debug_log_retention_period: 2880
+  domainname: svc.cluster.local
+  efsclient_enabled: false
+  elk_data_pv_size: 800Gi
+  enable_danm: false
+  enable_multus: true
+  eps_hooks: disable
+  esymacip: 127.0.0.1
+  esymacport: 8080
+  externalAirFrameWebUiDisplayName: ""
+  externalAirFrameWebUiUrl: ""
+  externalNcmWebUiDisplayName: ""
+  externalNcmWebUiUrl: ""
+  externalRadisysWebUiDisplayName: ""
+  externalRadisysWebUiUrl: ""
+  externalCA: false
+  pm_nbi_ccs_enabled: false
+  company: ""
+  country: ""
+  externalCArefId: ""
+  externalCAHost: 127.0.0.1
+  externalCAPort: 1234
+  externalCAPath: ""
+  externalCARecipient: ""
+  externalCAProtocol: CMPv2
+  externalCACRLIP: 127.0.0.1
+  externalCACRLPort: 4321
+  externalCAName: ""
+  externaldnsaccess: true
+  fmDataRetentionDays: 7
+  helm_hook: enable
+  cmvnfdatadelete: disable
+  imagePullSecrets:
+    name: art-regcred
+  imageRegistry: bcmt-registry:5000/corepaas-docker-local.bhisoj70.apac.nsn-net.net
+  internal_ingester_enable: true
+  internal_kafka: true
+  kafka_zookeeper_storageClass: cinder-tripleo-ceph-nova
+  internal_query_enable: true
+  ipv6interface: disable
+  istioEnabled: false
+  istioVersion: '1.6'
+  clustermonitoragent_clusterwide_access: true
+  jaeger_server_enabled: false
+  jobhookenable: true
+  jobtimeout: 900
+  keycloakCburConfigEnabled: false
+  lcmdeploy: true
+  liLogsRetentionDays: 7
+  li_log_archive_retention_period: 129600
+  li_log_retention_period: 2880
+  lms_service_enabled: false
+  ccs_service_enabled: false
+  ccli_service_enabled: true
+  mountHostLocaltime: true
+  lms_storage: csi-cephrbd
+  log_archive_retention_period: 10080
+  metadata_max_release: '21'
+  metadata_min_release: '2.0'
+  min_log_retention_period: ""
+  multus:
+    multuscidr: "10.11.10.0"
+    multuscontainer_prefix: eth1
+    multushost_device: "eth3"
+    multusname: multusnet
+    multussubnetmask: 27
+    route: 0.0.0.0/0
+    route_gw: "10.11.10.1"
+    ztslenvoylbip1: "10.11.10.2"
+    ztslenvoylbip2: "10.11.10.5"
+  persistentVolume:
+    enabled: true
+  pmDataRetentionDays: 7
+  pm_nbi_prometheus_enabled: false
+  postbackup: 0
+  postrestore: 0
+  prebackup: 0
+  prerestore: 0
+  query_dependencies_dagMaxNumService: 200
+  query_dependencies_menuEnabled: true
+  query_search_maxLimit: 1500
+  query_search_maxLookback: 2
+  rsyslog_enabled: false
+  sa_data_pv_size: 800Gi
+  sa_service_enabled: false
+  securityLogsRetentionDays: 7
+  jaegerDataRetentionDays: 7
+  security_log_archive_retention_period: 86400
+  security_log_retention_period: 2880
+  serviceAccountName: ""
+  servicedomainName: svc.cluster.local
+  settings_max_retry: 3
+  settings_sleep_time: 30
+  settings_vnfstatus_max_retry: 20
+  splunk_index: ""
+  telemetry_nbi_netact_enabled: true
+  telemetry_nbi_ves_enabled: false
+  terminationGracePeriodSeconds: 30
+  tls_validation_flag: true
+  upgrade_setcli: disable
+  ves_1_ip: 127.0.0.1
+  ves_1_password: svsv
+  ves_1_port: 30000
+  ves_1_username: root
+  ves_2_ip: 127.0.0.1
+  ves_2_password: svf
+  ves_2_port: 30000
+  ves_2_username: root
+  ves_3_ip: 127.0.0.1
+  ves_3_password: vsv
+  ves_3_port: 30000
+  ves_3_username: root
+  ves_data_pv_size: 50Gi
+  ves_hb_interval: 60
+  ves_retention_period: 60
+  ves_tls_enabled: true
+  vnf_deletestatus_max_retry: 10
+  vnfctype: CA
+  vnfdelete_sleep_time: 60
+  vnfname: "zts5"
+  vnftype: ZTS
+  ztspassword: User@1234
+  loginBanner: >-
+    You are about to access a private system. This system is for the use of
+    authorized users only. All connections are logged. Any unauthorized access
+    or access attempts may be punishable to the fullest extent possible under
+    the applicable local legislation.
+  storageclass:
+    ReadWriteManyAccess: "csi-cephfs"
+    ReadWriteOnceAccess: "csi-cephrbd"
+lms:
+  belk-efkc:
+    belk-elasticsearch:
+      network_host: _site_
+  webserver:
+    replicas: 2
+    webserver:
+      resources:
+        requests:
+          memory: 512Mi
+          cpu: 100m
+        limits:
+          memory: 1024Mi
+          cpu: 500m
+    fluentbit:
+      resources:
+        requests:
+          memory: 8Mi
+          cpu: 5m
+        limits:
+          memory: 170Mi
+          cpu: 50m
+    envoysidecar:
+      resources:
+        requests:
+          memory: 8Mi
+          cpu: 5m
+        limits:
+          memory: 170Mi
+          cpu: 50m
+    consul:
+      resources:
+        requests:
+          memory: 8Mi
+          cpu: 6m
+        limits:
+          memory: 75Mi
+          cpu: 50m
+    consulregistration:
+      resources:
+        requests:
+          memory: 8Mi
+          cpu: 5m
+        limits:
+          memory: 20Mi
+          cpu: 25m
+    cbur:
+      resources:
+        requests:
+          memory: 120Mi
+          cpu: 5m
+        limits:
+          memory: 120Mi
+          cpu: 30m
+trackerservice:
+  enabled: true
+  trackerserver:
+    hcservice:
+      resources:
+        requests:
+          memory: 25Mi
+          cpu: 5m
+        limits:
+          memory: 250Mi
+          cpu: 250m
+    cbursidecar:
+      resources:
+        requests:
+          memory: 16Mi
+          cpu: 10m
+        limits:
+          memory: 120Mi
+          cpu: 30m
+    fluentbit:
+      resources:
+        requests:
+          memory: 60Mi
+          cpu: 7m
+        limits:
+          memory: 170Mi
+          cpu: 25m
+    envoysidecar:
+      resources:
+        requests:
+          memory: 110Mi
+          cpu: 5m
+        limits:
+          memory: 150Mi
+          cpu: 50m
+    registration:
+      resources:
+        requests:
+          memory: 20Mi
+          cpu: 5m
+        limits:
+          memory: 20Mi
+          cpu: 25m
+    consulagent:
+      resources:
+        requests:
+          memory: 70Mi
+          cpu: 6m
+        limits:
+          memory: 75Mi
+          cpu: 25m
+  trackerdb:
+    Replicas: 1
+    storageClass: csi-cephfs
+    accessModes: ReadWriteMany
+    hcdb:
+      resources:
+        requests:
+          memory: 40Mi
+          cpu: 5m
+        limits:
+          memory: 40Mi
+          cpu: 25m
+    cbursidecar:
+      resources:
+        requests:
+          memory: 16Mi
+          cpu: 10m
+        limits:
+          memory: 120Mi
+          cpu: 50m
+    fluentbit:
+      resources:
+        requests:
+          memory: 60Mi
+          cpu: 24m
+        limits:
+          memory: 170Mi
+          cpu: 25m
+    envoysidecar:
+      resources:
+        requests:
+          memory: 100Mi
+          cpu: 5m
+        limits:
+          memory: 150Mi
+          cpu: 50m
+    registration:
+      resources:
+        requests:
+          memory: 25Mi
+          cpu: 5m
+        limits:
+          memory: 25Mi
+          cpu: 25m
+    consulagent:
+      resources:
+        requests:
+          memory: 70Mi
+          cpu: 5m
+        limits:
+          memory: 75Mi
+          cpu: 25m
+ztslenvoylb:
+  enabled: true
+  nonHA: false
+  ztsenvoylbf:
+    resources:
+      requests:
+        memory: 1700Mi
+        cpu: 150m
+      limits:
+        memory: 1700Mi
+        cpu: 300m
+  ztsenvoylbs:
+    resources:
+      requests:
+        memory: 1700Mi
+        cpu: 150m
+      limits:
+        memory: 1700Mi
+        cpu: 300m
+  ztsenvoylbdyn:
+    resources:
+      requests:
+        memory: 512Mi
+        cpu: 100m
+      limits:
+        memory: 512Mi
+        cpu: 250m
+  squid:
+    resources:
+      requests:
+        memory: 256Mi
+        cpu: 5m
+      limits:
+        memory: 256Mi
+        cpu: 50m
+  init:
+    resources:
+      requests:
+        memory: 20Mi
+        cpu: 5m
+      limits:
+        memory: 20Mi
+        cpu: 25m
+  consulagent:
+    resources:
+      requests:
+        memory: 200Mi
+        cpu: 50m
+      limits:
+        memory: 200Mi
+        cpu: 100m
+  registration:
+    resources:
+      requests:
+        memory: 20Mi
+        cpu: 5m
+      limits:
+        memory: 20Mi
+        cpu: 25m
+  fluentbit:
+    resources:
+      requests:
+        memory: 200Mi
+        cpu: 9m
+      limits:
+        memory: 200Mi
+        cpu: 50m
+  cbura:
+    resources:
+      requests:
+        memory: 120Mi
+        cpu: 10m
+      limits:
+        memory: 120Mi
+        cpu: 40m
+cvea:
+  replicaCount: 2
+  vagt:
+    persistentVolume:
+      storageClass: csi-cephfs
+      accessModes: ReadWriteOnce
+    resources:
+      requests:
+        memory: 500Mi
+        cpu: 350m
+      limits:
+        memory: 500Mi
+        cpu: 350m
+  cvea-rest:
+    resources:
+      requests:
+        memory: 500Mi
+        cpu: 500m
+      limits:
+        memory: 500Mi
+        cpu: 500m
+  configmapReload:
+    resources:
+      requests:
+        memory: 100Mi
+        cpu: 50m
+      limits:
+        memory: 100Mi
+        cpu: 50m
+  consulagent:
+    resources:
+      requests:
+        memory: 8Mi
+        cpu: 5m
+      limits:
+        memory: 75Mi
+        cpu: 75m
+  cbursidecar:
+    resources:
+      requests:
+        memory: 16Mi
+        cpu: 10m
+      limits:
+        memory: 120Mi
+        cpu: 30m
+  envoysidecar:
+    resources:
+      requests:
+        memory: 8Mi
+        cpu: 5m
+      limits:
+        memory: 200Mi
+        cpu: 110m
+caserver:
+  replicaCount: 2
+  initBusyBoxContainer:
+    resources:
+      requests:
+        memory: 256Mi
+        cpu: 250m
+      limits:
+        memory: 256Mi
+        cpu: 250m
+  caserverContainer:
+    resources:
+      requests:
+        memory: 1500Mi
+        cpu: 500m
+      limits:
+        memory: 1500Mi
+        cpu: 900m
+  fluentbitContainer:
+    resources:
+      requests:
+        memory: 100Mi
+        cpu: 50m
+      limits:
+        memory: 170Mi
+        cpu: 50m
+  envoysidecarContainer:
+    resources:
+      requests:
+        memory: 120Mi
+        cpu: 50m
+      limits:
+        memory: 170Mi
+        cpu: 50m
+  cacliContainer:
+    resources:
+      requests:
+        memory: 35Mi
+        cpu: 50m
+      limits:
+        memory: 75Mi
+        cpu: 50m
+  consulagentContainer:
+    resources:
+      requests:
+        memory: 50Mi
+        cpu: 50m
+      limits:
+        memory: 75Mi
+        cpu: 50m
+  regContainer:
+    resources:
+      requests:
+        memory: 20Mi
+        cpu: 25m
+      limits:
+        memory: 20Mi
+        cpu: 25m
+  cbura:
+    resources:
+      requests:
+        memory: 256Mi
+        cpu: 50m
+      limits:
+        memory: 256Mi
+        cpu: 50m
+cmdb:
+  cluster_type: master-slave
+  mariadb:
+    count: 3
+    persistence:
+      size: 1Gi
+      storageClass: csi-cephfs
+      backup:
+        size: 1Gi
+        storageClass: csi-cephfs
+    resources:
+      requests:
+        memory: 300Mi
+        cpu: 300m
+      limits:
+        memory: 300Mi
+        cpu: 300m
+  admin:
+    resources:
+      requests:
+        memory: 150Mi
+        cpu: 70m
+      limits:
+        memory: 150Mi
+        cpu: 70m
+    persistence:
+      storageClass: csi-cephfs
+  cbur:
+    resources:
+      requests:
+        memory: 256Mi
+        cpu: 50m
+      limits:
+        memory: 256Mi
+        cpu: 50m
+  maxscale:
+    count: 2
+    resources:
+      requests:
+        memory: 350Mi
+        cpu: 330m
+      limits:
+        memory: 450Mi
+        cpu: 500m
+  nodeAntiAffinity: soft
+belk-efkc:
+  belk-fluentd:
+    fluentd:
+      enable_root_privilege: true
+  global:
+    lms_storage: local-storage
+    elk_data_pv_size: 800Gi
+  belk-elasticsearch:
+    elasticsearch_master:
+      replicas: 3
+      resources:
+        limits:
+          cpu: 500m
+          memory: 1500Mi
+        requests:
+          cpu: 250m
+          memory: 1Gi
+      es_java_opts: '-Xms1g -Xmx1g'
+    elasticsearch_client:
+      replicas: 3
+      resources:
+        limits:
+          cpu: 500m
+          memory: 3Gi
+        requests:
+          cpu: 250m
+          memory: 2Gi
+      es_java_opts: '-Xms2g -Xmx2g'
+    esdata:
+      replicas: 2
+      resources:
+        limits:
+          cpu: 2100m
+          memory: 4000Mi
+        requests:
+          cpu: 500m
+          memory: 2Gi
+      es_java_opts: '-Xms2g -Xmx2g'
+    backup_restore:
+      storageClassName: csi-cephfs
+    cbur:
+      cbura:
+        resources:
+          limits:
+            cpu: 50m
+            memory: 256Mi
+          requests:
+            cpu: 50m
+            memory: 256Mi
+  belk-kibana:
+    kibana:
+      replicas: 2
+      resources:
+        limits:
+          cpu: 800m
+          memory: 1024Mi
+        requests:
+          cpu: 100m
+          memory: 256Mi
+  belk-curator:
+    curator:
+      resources:
+        limits:
+          cpu: 100m
+          memory: 120Mi
+        requests:
+          cpu: 100m
+          memory: 100Mi
+belk-fluentd:
+  fluentd:
+    enable_root_privilege: true
+    replicas: 3
+    persistence:
+      storageClassName: csi-cephfs
+    resources:
+      limits:
+        cpu: 500m
+        memory: 1000Mi
+      requests:
+        cpu: 400m
+        memory: 300Mi
+lcm:
+  resources:
+    requests:
+      memory: 256Mi
+      cpu: 100m
+    limits:
+      memory: 256Mi
+      cpu: 200m
+init:
+  resources:
+    requests:
+      memory: 70Mi
+      cpu: 5m
+    limits:
+      memory: 70Mi
+      cpu: 30m
+fluentbit:
+  resources:
+    requests:
+      memory: 110Mi
+      cpu: 25m
+    limits:
+      memory: 110Mi
+      cpu: 50m
+envoysidecar:
+  resources:
+    requests:
+      memory: 256Mi
+      cpu: 5m
+    limits:
+      memory: 256Mi
+      cpu: 50m
+consulagentcontainer:
+  resources:
+    requests:
+      memory: 75Mi
+      cpu: 6m
+    limits:
+      memory: 75Mi
+      cpu: 50m
+cbursidecar:
+  resources:
+    requests:
+      memory: 120Mi
+      cpu: 10m
+    limits:
+      memory: 120Mi
+      cpu: 30m
+SignalingAnalyzer:
+  pgxl-monitor:
+    pgxlmonitor:
+      replicas: 1
+      storageClassName: csi-cephrbd
+      resources:
+        limits:
+          memory: 512Mi
+          cpu: 500m
+        requests:
+          memory: 100Mi
+          cpu: 100m
+    fluentbit:
+      resources:
+        requests:
+          memory: 8Mi
+          cpu: 5m
+        limits:
+          memory: 2048Mi
+          cpu: 500m
+    envoysidecar:
+      resources:
+        requests:
+          memory: 8Mi
+          cpu: 5m
+        limits:
+          memory: 4096Mi
+          cpu: 1000m
+    consulagent:
+      resources:
+        requests:
+          memory: 8Mi
+          cpu: 5m
+        limits:
+          memory: 512Mi
+          cpu: 250m
+    registration:
+      resources:
+        requests:
+          memory: 8Mi
+          cpu: 5m
+        limits:
+          memory: 256Mi
+          cpu: 250m
+  heplifys:
+    heplifys:
+      replicas: 1
+      resources:
+        limits:
+          memory: 5Gi
+          cpu: '2'
+        requests:
+          memory: 1536Mi
+          cpu: 500m
+    fluentbit:
+      resources:
+        requests:
+          memory: 8Mi
+          cpu: 5m
+        limits:
+          memory: 2048Mi
+          cpu: 500m
+    envoysidecar:
+      resources:
+        requests:
+          memory: 8Mi
+          cpu: 5m
+        limits:
+          memory: 4096Mi
+          cpu: 1000m
+    consulagent:
+      resources:
+        requests:
+          memory: 8Mi
+          cpu: 5m
+        limits:
+          memory: 512Mi
+          cpu: 250m
+    registration:
+      resources:
+        requests:
+          memory: 8Mi
+          cpu: 5m
+        limits:
+          memory: 256Mi
+          cpu: 250m
+  hwebapp:
+    hwebapp:
+      replicas: 1
+      resources:
+        limits:
+          memory: 1Gi
+          cpu: '1'
+        requests:
+          memory: 100Mi
+          cpu: 100m
+    fluentbit:
+      resources:
+        requests:
+          memory: 8Mi
+          cpu: 5m
+        limits:
+          memory: 2048Mi
+          cpu: 500m
+    envoysidecar:
+      resources:
+        requests:
+          memory: 8Mi
+          cpu: 5m
+        limits:
+          memory: 4096Mi
+          cpu: 1000m
+    consulagent:
+      resources:
+        requests:
+          memory: 8Mi
+          cpu: 5m
+        limits:
+          memory: 512Mi
+          cpu: 250m
+    registration:
+      resources:
+        requests:
+          memory: 8Mi
+          cpu: 5m
+        limits:
+          memory: 256Mi
+          cpu: 250m
+  postgres-xl:
+    persistence:
+      storageClassName: csi-cephrbd
+      accessMode: ReadWriteOnce
+      gtmStorageSize: 5Gi
+      crdStorageSize: 5Gi
+      dnStorageSize: 20Gi
+      storage_auto_delete: true
+    gtm:
+      resources:
+        limits:
+          memory: 1Gi
+          cpu: 500m
+        requests:
+          memory: 100Mi
+          cpu: 10m
+    proxies:
+      replicas: 2
+      enabled: true
+      thread_count: 3
+      resources:
+        limits:
+          memory: 1Gi
+          cpu: 500m
+        requests:
+          memory: 200Mi
+          cpu: 50m
+    coordinators:
+      replicas: 1
+      resources:
+        limits:
+          memory: 6Gi
+          cpu: '2'
+        requests:
+          memory: 2Gi
+          cpu: 500m
+    datanodes:
+      replicas: 2
+      resources:
+        limits:
+          memory: 8Gi
+          cpu: '4'
+        requests:
+          memory: 5Gi
+          cpu: 1500m
+    fluentbit:
+      resources:
+        requests:
+          memory: 8Mi
+          cpu: 5m
+        limits:
+          memory: 2048Mi
+          cpu: 500m
+    envoysidecar:
+      resources:
+        requests:
+          memory: 8Mi
+          cpu: 5m
+        limits:
+          memory: 4096Mi
+          cpu: 1000m
+    consulagent:
+      resources:
+        requests:
+          memory: 8Mi
+          cpu: 5m
+        limits:
+          memory: 512Mi
+          cpu: 250m
+    registration:
+      resources:
+        requests:
+          memory: 8Mi
+          cpu: 5m
+        limits:
+          memory: 256Mi
+          cpu: 250m
+jaegerserver:
+  ckaf-kafka:
+    global:
+      kafka_zookeeper_storageClass: csi-cephfs
+      kafka_DataStorage: 10Gi
+      kafka_LogStorage: 10Gi
+      zookeeper_LogStorage: 10Gi
+      zookeeper_DataStorage: 10Gi
