@@ -1705,7 +1705,7 @@ global:
   cmvnfdatadelete: disable
   imagePullSecrets:
     name: art-regcred
-  imageRegistry: bcmt-registry:5000/corepaas-docker-local.bhisoj70.apac.nsn-net.net
+  imageRegistry: csf-docker-delivered.repo.lab.pl.alcatel-lucent.com
   internal_ingester_enable: true
   internal_kafka: true
   kafka_zookeeper_storageClass: cinder-tripleo-ceph-nova
