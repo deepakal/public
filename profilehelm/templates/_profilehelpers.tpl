@@ -20,4 +20,7 @@ data:
   {{ $name }}: {{ $content | b64enc }}
 {{- end }}
   Profile.yaml: {{ tpl (.Files.Get "profile/Profile.yaml") . | b64enc }}
+{{ if .Values.injectExample }}
+  data-0.tpl: {{ tpl (.Files.Get "test/data.example.tpl") . | b64enc }}
+{{- end }}
 {{- end }}
