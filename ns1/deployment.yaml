@@ -22,4 +22,8 @@ spec:
         - name: HTTP_PROXY
           value: "http://10.158.100.1:8080/"
         - name: HTTPS_PROXY
-          value: "http://10.158.100.1:8080/"          
+          value: "http://10.158.100.1:8080/"
+        - name: http_proxy
+          value: "http://10.158.100.1:8080/"
+        - name: https_proxy
+          value: "http://10.158.100.1:8080/" 
